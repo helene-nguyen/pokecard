@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokeCard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GSAP tool animation effect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
+
+</head>
+
+<body>
+
+
+    <section class="pokecard">
+
+        <!-- POKEMON -->
+        <div class="pokemon">
+            <img src="/img/pikachu.png" alt="pokemon">
+        </div>
+        <div class="tags">
+            <span class="storm">Electrik</span>
+        
+        </div>
+
+        <!-- BUTTON -->
+        <div id="pokeball-1" class="pokeball open">
+            <button id="toggle-button"></button>
+        </div>
+
+        <svg id="summon-1" width="500px" height="500px" class="summon hidden">
+            <!-- PATH OF LIGHT -->
+            <path class="path" d="M150 320 L30 250 L200 150" fill="none" stroke="black" stroke-width="15px"
+                stroke-dasharray="100%" stroke-dashoffset="100%" />
+        </svg>
+
+        <svg width="500px" height="500px" class="hidden">
+            <defs>
+                <!--! SPAWN -->
+                <filter id="spawn-line">
+                    <feTurbulence id="line-turbulence" in="SourceGraphic" type="fractalNoise" baseFrequency="0.013"
+                        numOctaves="1" result="TURBULENCE_1" />
+
+                    <feDisplacementMap id="line-displacement" in="SourceGraphic" in2="TURBULENCE_1" scale="200"
+                        xChannelSelector="R" yChannelSelector="G" result="DISPLACEMENT_1" />
+
+                    <feFlood in="DISPLACEMENT_1" flood-color="#fffdc4" flood-opacity="1" result="FLOOD_1" />
+
+                    <feComposite in="FLOOD_1" in2="DISPLACEMENT_1" operator="in" result="COMPOSITE_1" />
+                </filter>
+
+                <filter id="spawn-pokemon">
+                    <feTurbulence id="pokemon-turbulence" in="SourceGraphic" type="fractalNoise" baseFrequency="0.015"
+                        numOctaves="1" result="TURBULENCE_1" />
+                    <feDisplacementMap id="pokemon-displacement" in="SourceGraphic" in2="TURBULENCE_1" scale="100"
+                        xChannelSelector="R" yChannelSelector="G" result="DISPLACEMENT_1" />
+                    <feFlood in="DISPLACEMENT_1" flood-color="#fffdc4" flood-opacity="1" result="FLOOD_1" />
+                    <feComposite in="FLOOD_1" in2="DISPLACEMENT_1" operator="in" result="COMPOSITE_1" />
+                </filter>
+                <!--! RETRIEVE -->
+                <filter id="retrieve-line">
+                    <feTurbulence in="SourceGraphic" type="fractalNoise" baseFrequency="0.015" numOctaves="1"
+                        result="TURBULENCE_1" />
+                    <feDisplacementMap in="SourceGraphic" in2="TURBULENCE_1" scale="200" xChannelSelector="R"
+                        yChannelSelector="G" result="DISPLACEMENT_1" />
+                    <feFlood in="DISPLACEMENT_1" flood-color="#fec9c9" flood-opacity="1" result="FLOOD_1" />
+                    <feComposite in="FLOOD_1" in2="DISPLACEMENT_1" operator="in" result="COMPOSITE_1" />
+                </filter>
+                <filter id="retrieve-pokemon">
+                    <feTurbulence id="retrieve-turbulence" in="SourceGraphic" type="fractalNoise" baseFrequency="0.015"
+                        numOctaves="1" result="TURBULENCE_1" />
+                    <feDisplacementMap id="retrieve-displacement" in="SourceGraphic" in2="TURBULENCE_1" scale="100"
+                        xChannelSelector="R" yChannelSelector="G" result="DISPLACEMENT_1" />
+                    <feFlood in="DISPLACEMENT_1" flood-color="#fec9c9" flood-opacity="1" result="FLOOD_1" />
+                    <feComposite in="FLOOD_1" in2="DISPLACEMENT_1" operator="in" result="COMPOSITE_1" />
+                </filter>
+            </defs>
+        </svg>
+
+        <svg width="500px" height="500px" class="hidden">
+            <defs>
+
+                <filter id="spawn-line-1">
+                    <feTurbulence id="line-turbulence-1" in="SourceGraphic" type="fractalNoise" baseFrequency="0.013"
+                        numOctaves="1" result="TURBULENCE_1" />
+                    <feDisplacementMap id="line-displacement-1" in="SourceGraphic" in2="TURBULENCE_1" scale="200"
+                        xChannelSelector="R" yChannelSelector="G" result="DISPLACEMENT_1" />
+                    <feFlood in="DISPLACEMENT_1" flood-color="#fffdc4" flood-opacity="1" result="FLOOD_1" />
+                    <feComposite in="FLOOD_1" in2="DISPLACEMENT_1" operator="in" result="COMPOSITE_1" />
+                </filter>
+
+                <filter id="spawn-pokemon-1">
+                    <feTurbulence id="pokemon-turbulence-1" in="SourceGraphic" type="fractalNoise" baseFrequency="0.015"
+                        numOctaves="1" result="TURBULENCE_1" />
+                    <feDisplacementMap id="pokemon-displacement-1" in="SourceGraphic" in2="TURBULENCE_1" scale="100"
+                        xChannelSelector="R" yChannelSelector="G" result="DISPLACEMENT_1" />
+                    <feFlood in="DISPLACEMENT_1" flood-color="#fffdc4" flood-opacity="1" result="FLOOD_1" />
+                    <feComposite in="FLOOD_1" in2="DISPLACEMENT_1" operator="in" result="COMPOSITE_1" />
+                </filter>
+
+                <filter id="retrieve-line-1">
+                    <feTurbulence in="SourceGraphic" type="fractalNoise" baseFrequency="0.015" numOctaves="1"
+                        result="TURBULENCE_1" />
+                    <feDisplacementMap in="SourceGraphic" in2="TURBULENCE_1" scale="200" xChannelSelector="R"
+                        yChannelSelector="G" result="DISPLACEMENT_1" />
+                    <feFlood in="DISPLACEMENT_1" flood-color="#fec9c9" flood-opacity="1" result="FLOOD_1" />
+                    <feComposite in="FLOOD_1" in2="DISPLACEMENT_1" operator="in" result="COMPOSITE_1" />
+                </filter>
+
+                <filter id="retrieve-pokemon-1">
+                    <feTurbulence id="retrieve-turbulence-1" in="SourceGraphic" type="fractalNoise"
+                        baseFrequency="0.015" numOctaves="1" result="TURBULENCE_1" />
+                    <feDisplacementMap id="retrieve-displacement-1" in="SourceGraphic" in2="TURBULENCE_1" scale="100"
+                        xChannelSelector="R" yChannelSelector="G" result="DISPLACEMENT_1" />
+                    <feFlood in="DISPLACEMENT_1" flood-color="#fec9c9" flood-opacity="1" result="FLOOD_1" />
+                    <feComposite in="FLOOD_1" in2="DISPLACEMENT_1" operator="in" result="COMPOSITE_1" />
+                </filter>
+            </defs>
+        </svg>
+
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <!-- <script src="index.js"></script> -->
+    <script src="index.refacto.js"></script>
+
+</body>
+
+</html>
